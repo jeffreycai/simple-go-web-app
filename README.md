@@ -1,14 +1,3 @@
-## Build the app
-```
-go build main.go
-```
-## Run the app
-```
-./main
-```
+# app-sample-eks-nginx-helloworld
 
-or 
-
-```
-go run main.go
-```
+A sample app show deployment on eks

@@ -1,0 +1,44 @@
+image: flemay/musketeers
+
+# overlay2 provides improved performance for dind
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
+
+stages:
+  - input_var_check
+  - docker_build
+#  - docker_push
+#  - eks_deploy
+
+########################
+# Stage: env_var_check
+########################
+input_var_check:
+  stage: input_var_check
+  script:
+    - bash make/input_var_check.sh
+
+########################
+# Stage: docker_build
+########################
+.build_docker_image: &build_docker_image-definition
+  stage: docker_build
+  script:
+    - make docker-build
+  artifacts:
+    paths:
+      - stage_output.*
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    expire_in: 1 day
+
+# cloudops-nonprod
+cloudops-nonprod-docker_build:
+  <<: *is_it_my_turn-definition
+  variables:
+    AWS_ACCOUNT_ID: "581127970703"
+  tags:
+    - cloudops-nonprod-runner
+

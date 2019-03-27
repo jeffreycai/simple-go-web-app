@@ -10,3 +10,9 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Ops files
+__pycache__
+*.pyc
+.env
+stage_output*

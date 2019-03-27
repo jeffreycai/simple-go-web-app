@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigee-applist
+  labels:
+    app: apigee-applist
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apigee-applist
+  template:
+    metadata:
+      labels:
+        app: apigee-applist
+    spec:
+      containers:
+      - name: apigee-applist
+        image: 12345678.dkr.ecr.ap-southeast-2.amazonaws.com/app_name:latest
+        ports:
+        - containerPort: 3000
+          name: http-server
